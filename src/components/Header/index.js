@@ -1,0 +1,29 @@
+import {Component} from 'react'
+import './index.css';
+import vastra_logo from '../../assets/vastra.png';
+import { CgProfile } from "react-icons/cg";
+import { FaRegHeart } from "react-icons/fa";
+import { BsHandbag } from "react-icons/bs";
+import { IoIosSearch } from "react-icons/io";
+class Header extends Component{
+    render(){
+        return(
+            <div className='nav-background d-flex justify-content-between align-items-around'>
+                <img src={vastra_logo} className="logo" alt="logo"/>
+                <div className="col-lg-4 d-flex justify-content-between align-items-center">
+                    <div className="col-lg-9 d-flex">
+                        <input type="text" className="search-input mb-2 col-lg-12" placeholder=' search for products......'/>
+                        <IoIosSearch className='search-icon'/>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-around col-lg-2">
+                        <FaRegHeart className="icon-size"/>
+                        <BsHandbag className="icon-size"/>
+                         <CgProfile className="icon-size"/>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default Header

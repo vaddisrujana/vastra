@@ -1,0 +1,22 @@
+* {
+    overflow-x: hidden;
+}
+.footer{
+    background-color: #083c4c;
+    width:100vw;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #B2BEB5;
+    /* align-items: center; */
+}
+.footer-logo{
+    height: 40vh;
+    width:20vw;
+}
+.footer-heading{
+    font-size: 20px;
+    font-weight: bold;
+}
+.footer-items {
+    padding-top: 2%;
+}

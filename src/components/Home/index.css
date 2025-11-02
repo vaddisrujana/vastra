@@ -1,0 +1,42 @@
+* {
+    overflow-x: hidden;
+}
+.home-container{
+    width: 80vw;
+}
+.banner{
+    height:60vh;
+    padding:10px;
+}
+.frame{
+    border:2px solid black;
+    margin:10px;
+}
+.women-frame{
+    height:35vh;
+    width:30vh;
+}
+.head-category{
+    text-align: center;
+    font-family:'Lucida Handwriting';
+    
+}
+.category-heading{
+    text-align: center;
+    font-family:'Lucida Handwriting';
+
+}
+.custom-caption {
+    position: absolute;
+    top: 50%;
+    right: 10%; 
+    transform: translateY(-50%);
+    text-align: right; 
+    font-family:'Lucida Handwriting';
+    font-size: 20px;
+  }
+  .custom-head{
+    font-size: 25px;
+    text-align: center; 
+    font-weight: bold;
+  }

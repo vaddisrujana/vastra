@@ -1,0 +1,31 @@
+.product-image {
+    height: 40vh;
+    margin-top: 10px;
+}
+.product-container{
+    height: 100vh;
+}
+.product-brand{
+    margin: 0;
+    overflow: hidden;
+}
+.product-name{
+    font-size: 14px;
+    color: grey;
+    margin: 5px 0;
+}
+.real-price{
+    text-decoration: line-through !important;
+    color: grey;
+    font-size: 10px;
+}
+.offer-price{
+    color: orange;
+    font-size: 12px;
+}
+.product-price{
+    overflow: hidden;
+}
+.wishlist{
+    margin-top: -20px;
+}
