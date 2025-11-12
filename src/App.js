@@ -2,6 +2,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import Home from './components/Home';
+import ProductDetails from './components/ProductDetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Products from './components/Products';
@@ -17,10 +18,11 @@ function App() {
         </div>
         <div className="col-lg-10">
           <Routes>
-             <Route path='/' exact element={<Home/>} />
+            <Route path='/' exact element={<Home/>} />
             <Route path='/women' exact element={<Products/>} />
             <Route path='/men' exact element={<Products/>} />
             <Route path='/kids' exact element={<Products/>} />
+             <Route path='/productdetails/:id' element={<ProductDetails/>} />
           </Routes>
         </div>
       </div>

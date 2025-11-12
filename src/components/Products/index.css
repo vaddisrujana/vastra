@@ -8,6 +8,7 @@
 .product-brand{
     margin: 0;
     overflow: hidden;
+    color : #083c4c !important;
 }
 .product-name{
     font-size: 14px;
@@ -25,7 +26,9 @@
 }
 .product-price{
     overflow: hidden;
+    color : #083c4c !important;
 }
 .wishlist{
     margin-top: -20px;
+    color : #083c4c !important;
 }

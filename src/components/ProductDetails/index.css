@@ -1,0 +1,38 @@
+.brand{
+    overflow: hidden;
+}
+.addtobag{
+     background-color: #fff;
+     color: #083c4c;
+     padding: 5px;
+     border-color: #083c4c;
+     border-radius: 5px;
+}
+.addtobag:hover{
+    background-color: #083c4c;
+    color: #fff;
+}
+.heartsym{
+    border: none;
+    background: transparent;
+    padding: 5px;
+    font-size: 20px;
+    color: #083c4c;
+}
+.heartfill{
+    fill: red;
+}
+.size{
+    /* padding: 4px; */
+    width:2vw;
+    background: transparent;
+    color: #083c4c;
+    border-radius: 50px;
+}
+.size:hover{
+    background: #083c4c;
+    color: #fff;
+}
+.backLink{
+    color: black !important;
+}

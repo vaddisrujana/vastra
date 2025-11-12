@@ -5,6 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaRegHeart } from "react-icons/fa";
 import { BsHandbag } from "react-icons/bs";
 import { IoIosSearch } from "react-icons/io";
+import { Link } from 'react-router-dom';
 class Header extends Component{
     render(){
         return(
@@ -16,14 +17,14 @@ class Header extends Component{
                         <IoIosSearch className='search-icon'/>
                     </div>
                     <div className="d-flex justify-content-between align-items-around col-lg-2">
-                        <FaRegHeart className="icon-size"/>
-                        <BsHandbag className="icon-size"/>
-                         <CgProfile className="icon-size"/>
+                        <Link to='/wishlist'><FaRegHeart className="icon-size"/></Link>
+                        <Link to='/bag'><BsHandbag className="icon-size"/></Link>
+                        <Link to='/registration'><CgProfile className="icon-size"/></Link>
                     </div>
                 </div>
             </div>
         )
     }
 }
-
+ 
 export default Header

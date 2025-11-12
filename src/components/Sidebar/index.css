@@ -7,10 +7,7 @@
 .sidebar {
     width: 15vw;
     background-color: #B2BEB5;
-    /* position: fixed;
-    top: 0;
-    left: 0;
-    padding-top: 20px; */
+    height: 100vh;
 }
 .sidebar-list {
     list-style-type: none;
