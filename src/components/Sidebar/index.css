@@ -6,7 +6,7 @@
 }
 .sidebar {
     width: 15vw;
-    background-color: #B2BEB5;
+    background-color: #fff;
     height: 100vh;
 }
 .sidebar-list {
@@ -17,26 +17,26 @@
     padding: 15px 20px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
-    color: #083c4c;
+    color: #ad5050;
     cursor: pointer;
 }
 .sidebar-arrow{
     font-size: 30px;
-    color: #083c4c;
+    color: #ad5050;
     margin-left:85%;
     cursor: pointer;
 }
 .sidebar-list-item:hover{
-    background-color: #083c4c;
-    color: #B2BEB5 !important;
+    background-color: #ad5050;
+    color: #E0EBE8 !important;
 }
 .product{
-    color: #083c4c;
+    color: #fff;
 }
 .product:hover{
      text-decoration: underline;
      cursor: pointer;
-     /* color: #B2BEB5; */
+     /* color: #E0EBE8; */
 }
 .sidebar-icon{
     font-size: 25px;
@@ -48,17 +48,17 @@
 .sidebar-hide{
     width: 5vw;
     height: 100vh;
-    background-color: #B2BEB5;;
+    background-color: #fff;;
 }
 .sidebar-right-arrow{
     font-size: 30px;
-    color: #083c4c;
+    color: #ad5050;
     margin-left:25%;
     cursor: pointer;
 }
 .sidebar-text{
-    color: #083c4c;
+    color: #ad5050;
 }
 /* .sidebar-text:hover{
-   color: #B2BEB5;
+   color: #E0EBE8;
 } */

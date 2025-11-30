@@ -4,8 +4,8 @@ import './index.css';
 import { IoIosArrowDropleft } from "react-icons/io";
 import { IoIosArrowDropright } from "react-icons/io";
 import { MdOutlineHome } from "react-icons/md";
-import { FcBusinesswoman } from "react-icons/fc";
-import { FcBusinessman } from "react-icons/fc";
+import { SlUserFemale } from "react-icons/sl";
+import { FaMale } from "react-icons/fa";
 import { FaChildren } from "react-icons/fa6";
 import { FcAbout } from "react-icons/fc";
 import { FcContacts } from "react-icons/fc";
@@ -61,8 +61,8 @@ class Sidebar extends Component{
                             top: "40%",
                             left:isHidden ? "8%" : "15%",
                             transform: "translate(-50%, -50%)",
-                            backgroundColor: "#B2BEB5",
-                            // color:"#001861",
+                            backgroundColor: "#ad5050",
+                            color:"#fff",
                             // fontFamily:'Lucida Handwriting',
                             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                             borderRadius: "4px",
@@ -89,8 +89,8 @@ class Sidebar extends Component{
                             top: "50%",
                             left:isHidden ? "8%" : "15%",
                             transform: "translate(-50%, -50%)",
-                            backgroundColor: "#B2BEB5",
-                            // color:"#001861",
+                            backgroundColor: "#ad5050",
+                            color:"#fff",
                             // fontFamily:'Lucida Handwriting',
                             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                             borderRadius: "4px",
@@ -117,8 +117,8 @@ class Sidebar extends Component{
                             top: "60%",
                             left:isHidden ? "8%" : "15%",
                             transform: "translate(-50%, -50%)",
-                            backgroundColor: "#B2BEB5",
-                            // color:"#001861",
+                            backgroundColor: "#ad5050",
+                            color:"#fff",
                             // fontFamily:'Lucida Handwriting',
                             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                             borderRadius: "4px",
@@ -143,12 +143,12 @@ class Sidebar extends Component{
                     onMouseLeave={this.handleMouseLeave}
                     style={{
                         cursor: "pointer",
-                    }}><Link to='/women' className='sidebar-list-item'><FcBusinesswoman className='sidebar-icon' /><span className={isHidden ? 'sidebar-item':''}>Women</span></Link></li>
+                    }}><Link to='/women' className='sidebar-list-item'><SlUserFemale className='sidebar-icon' /><span className={isHidden ? 'sidebar-item':''}>Women</span></Link></li>
                      <li className='sidebar-list-item'  onMouseEnter={this.handleMenMouseEnter}
                     onMouseLeave={this.handleMenMouseLeave}
                     style={{
                         cursor: "pointer",
-                    }}><Link to='/men' className='sidebar-list-item'><FcBusinessman className='sidebar-icon' /><span className={isHidden ? 'sidebar-item':''}>Men</span></Link></li>
+                    }}><Link to='/men' className='sidebar-list-item'><FaMale className='sidebar-icon' /><span className={isHidden ? 'sidebar-item':''}>Men</span></Link></li>
                      <li className='sidebar-list-item'  onMouseEnter={this.handleKidsMouseEnter}
                     onMouseLeave={this.handleKidsMouseLeave}
                     style={{

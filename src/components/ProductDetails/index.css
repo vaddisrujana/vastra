@@ -3,13 +3,13 @@
 }
 .addtobag{
      background-color: #fff;
-     color: #083c4c;
+     color: #ad5050;
      padding: 5px;
-     border-color: #083c4c;
+     border-color: #ad5050;
      border-radius: 5px;
 }
 .addtobag:hover{
-    background-color: #083c4c;
+    background-color: #ad5050;
     color: #fff;
 }
 .heartsym{
@@ -17,7 +17,7 @@
     background: transparent;
     padding: 5px;
     font-size: 20px;
-    color: #083c4c;
+    color: #ad5050;
 }
 .heartfill{
     fill: red;
@@ -26,13 +26,20 @@
     /* padding: 4px; */
     width:2vw;
     background: transparent;
-    color: #083c4c;
+    color: #ad5050;
     border-radius: 50px;
 }
 .size:hover{
-    background: #083c4c;
+    background: #ad5050;
     color: #fff;
 }
 .backLink{
     color: black !important;
+}
+.addedtobag{
+    background-color: #ad5050;
+    color: #fff;
+    padding: 5px;
+    border-color: #ad5050;
+    border-radius: 5px;
 }

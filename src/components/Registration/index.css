@@ -1,0 +1,23 @@
+.popup {
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    padding-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 20vw;
+    text-align: center;
+}
+ 
+.cross {
+    border: 0;
+    background: transparent;
+    font-size: 12px;
+    color: #fff;
+}
+ 
+.regError {
+    color: darkred;
+    font-size: 12px;
+}

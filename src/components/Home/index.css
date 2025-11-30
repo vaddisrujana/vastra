@@ -11,6 +11,8 @@
 .frame{
     border:2px solid black;
     margin:10px;
+    background: #ad5050;
+    color: #fff;
 }
 .women-frame{
     height:35vh;
@@ -18,13 +20,11 @@
 }
 .head-category{
     text-align: center;
-    font-family:'Lucida Handwriting';
     
 }
 .category-heading{
     text-align: center;
-    font-family:'Lucida Handwriting';
-
+    overflow: hidden;
 }
 .custom-caption {
     position: absolute;
@@ -32,11 +32,11 @@
     right: 10%; 
     transform: translateY(-50%);
     text-align: right; 
-    font-family:'Lucida Handwriting';
     font-size: 20px;
   }
   .custom-head{
     font-size: 25px;
     text-align: center; 
     font-weight: bold;
+    overflow: hidden;
   }

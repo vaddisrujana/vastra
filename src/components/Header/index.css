@@ -6,7 +6,7 @@
 
 .nav-background{
     margin:0;
-    background-color:#083c4c;
+    background-color:#FCEFE6;
 }
 .logo{
     height:80px;
@@ -15,10 +15,10 @@
 .icon-size{
     font-size:20px;
     margin-bottom: 5px;
-    color:white
+    color:#ad5050
 }
 .search-icon{
     font-size:25px;
-    color:083c4c;
+    color:#ad5050;
     margin-left: -25px;
 }
