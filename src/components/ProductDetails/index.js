@@ -24,20 +24,57 @@ class ProductDetails extends Component{
     this.setState((prevState)=>({isWishlisted:!prevState.isWishlisted}));
     console.log(this.state.isWishlisted);
     const { id } = this.props.params;
+    const wishlisted ={
+      "login":'6921dd81cc5050fa1fb2a41f',
+        "product_details":{
+        "is_wishlisted":!this.state.isWishlisted,
+        "product_id": id,
+        "in_bag": 0
+       }
+    }
     axios.get('http://localhost:3000/bag/68e10dc4abb99f038118376f')
     .then(res =>{
-     if(res.status==200){
-      axios.patch('http://localhost:3000/bag/68e10dc4abb99f038118376f')
-     }
+     if(res.status===200){
+       const wishlisted ={
+          "is_wishlisted":!this.state.isWishlisted,
+          "product_id": id,
+          "in_bag": 0
+        }
+       if(Array.isArray(res.data) && res.data.length > 0){
+        axios.patch('http://localhost:3000/bag/68e10dc4abb99f038118376f',wishlisted,{
+        headers:{
+          "Content-Type":"application/json"
+        }
+        })
+        .then(res =>{
+          console.log(res)
+        })
+        .catch(err =>{
+          console.log(err)
+        }) 
+      } else {
+        const wishlisted ={
+          "login":'6921dd81cc5050fa1fb2a41f',
+            "product_details":{
+            "is_wishlisted":!this.state.isWishlisted,
+            "product_id": id,
+            "in_bag": 0
+          }
+        }
+        axios.post('http://localhost:3000/bag',wishlisted,{
+          headers:{
+            "Content-Type":"application/json"
+          }
+        })
+        .then(res =>{
+          console.log(res)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+      }
+      }
     })
-    const wishlisted ={
-      "is_wishlisted":!this.state.isWishlisted,
-      "login_id": "68e10dc4abb99f038118376f",
-      "product_id": [
-        id
-      ],
-      "in_bag": 0
-    }
     // axios.post('http://localhost:3000/bag/',wishlisted,{
     //   headers:{
     //     "Content-Type":"application/json"
