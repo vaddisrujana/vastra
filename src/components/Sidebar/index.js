@@ -1,6 +1,5 @@
 import {Component} from 'react'
 import './index.css';
-// import {Link} from 'react-router-dom';
 import { IoIosArrowDropleft } from "react-icons/io";
 import { IoIosArrowDropright } from "react-icons/io";
 import { MdOutlineHome } from "react-icons/md";

@@ -11,7 +11,7 @@ class Products extends Component{
   
   state = {isWishlisted:{},addedToBag:{},product : [],category : this.props.params.category}
   componentDidMount(){
-    this.callByCategory()
+    this.callByCategory();
   }
   callByCategory(){
     axios
@@ -19,6 +19,15 @@ class Products extends Component{
     .then((res)=>{
       const data=res.data.filter(u => u.category === this.props.params.category)
       this.setState({ product:data, category : this.props.params.category})
+      axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
+      .then(res =>{
+      const p_data= res.data[0].product_details;
+       this.setState({isWishlisted:Object.fromEntries(
+        p_data.map(u => [u.product_id,u.is_wishlisted])
+       ),addedToBag:Object.fromEntries(
+        p_data.map(u => [u.product_id,u.in_bag])
+       )});
+      });
     })
     .catch((err)=>{
       console.log(err)
@@ -29,16 +38,98 @@ class Products extends Component{
         this.callByCategory()
     }
   }
-    toggleHeart=(id)=>{
+  toggleHeart=(id)=>{
     this.setState((prev)=>({isWishlisted:{
       ...prev.isWishlisted,[id]:!prev.isWishlisted[id]
     }}))
+    axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
+    .then(res =>{
+      if(res.status===200){
+        if(Array.isArray(res.data) && res.data.length > 0){
+          const wishlisted ={
+            "is_wishlisted":this.state.isWishlisted[id],
+            "product_id": id,
+          }
+          axios.patch('http://localhost:3000/bag/68ca7ef475dec5c5683b022e',wishlisted,{
+            headers:{
+              "Content-Type":"application/json"
+            }
+          })
+          .then(res =>{
+            // console.log(res)
+          })
+          .catch(err =>{
+            console.log(err)
+          })
+        } else {
+          const wishlisted ={
+            "login_id":'68ca7ef475dec5c5683b022e',
+              "product_details":{
+              "is_wishlisted":this.state.isWishlisted[id],
+              "product_id": id
+            }
+          }
+          axios.post('http://localhost:3000/bag',wishlisted,{
+            headers:{
+              "Content-Type":"application/json"
+            }
+          })
+          .then(res =>{
+            // console.log(res)
+          })
+          .catch(err=>{
+            console.log(err)
+          })
+        }
+      }
+    })
     }
     addToBag=(id)=>{
       this.setState((prev)=>({addedToBag:{
         ...prev.addedToBag,[id]:!prev.addedToBag[id]
       }
       }))
+    axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
+    .then(res =>{
+     if(res.status===200){
+       if(Array.isArray(res.data) && res.data.length > 0){
+        const bag ={
+          "product_id": id,
+          "in_bag": this.state.addedToBag[id]
+        }
+        axios.patch('http://localhost:3000/bag/68ca7ef475dec5c5683b022e',bag,{
+        headers:{
+          "Content-Type":"application/json"
+        }
+        })
+        .then(res =>{
+          // console.log(res)
+        })
+        .catch(err =>{
+          console.log(err)
+        })
+      } else {
+        const bag ={
+          "login_id":'68ca7ef475dec5c5683b022e',
+            "product_details":{
+            "product_id": id,
+            "in_bag": this.state.addedToBag[id]
+          }
+        }
+        axios.post('http://localhost:3000/bag',bag,{
+          headers:{
+            "Content-Type":"application/json"
+          }
+        })
+        .then(res =>{
+          // console.log(res)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+      }
+      }
+    })
     }
     render(){
       const {product,isWishlisted,addedToBag} = this.state
