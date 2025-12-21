@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Products from './components/Products';
 import Wishlist from './components/Wishlist';
+import Bag from './components/Bag';
+import Admin from './components/Admin';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
             <Route path='/:category' exact element={<Products/>} />
             <Route path='/productdetails/:id' element={<ProductDetails/>} />
             <Route path='/Wishlist' exact element={<Wishlist/>} />
+            <Route path='/Bag' exact element={<Bag/>} />
+            <Route path='/Admin' exact element={<Admin/>} />
           </Routes>
         </div>
       </div>

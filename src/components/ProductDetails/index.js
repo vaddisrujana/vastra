@@ -22,14 +22,12 @@ class ProductDetails extends Component{
     axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
     .then(res =>{
       if(res.status===200){
-        if(Array.isArray(res.data) && res.data.length > 0){
-          const getBag = res.data[0].product_details.filter(u =>u.product_id===id);
+          const getBag = res.data.product_details.filter(u =>u.product_id===id);
           if(getBag.length>0){
-          const getBagVal = getBag[0].in_bag;
-          const getWishlistVal = getBag[0].is_wishlisted;
-          this.setState({ isWishlisted:getWishlistVal,addedToBag:getBagVal})
+            const getBagVal = getBag[0].in_bag;
+            const getWishlistVal = getBag[0].is_wishlisted;
+            this.setState({ isWishlisted:getWishlistVal,addedToBag:getBagVal})
           }
-        }
       }
     })
   }
@@ -38,8 +36,8 @@ class ProductDetails extends Component{
     const { id } = this.props.params;
     axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
     .then(res =>{
+      console.log('res.status',res.status)
       if(res.status===200){
-        if(Array.isArray(res.data) && res.data.length > 0){
           const wishlisted ={
             "is_wishlisted":this.state.isWishlisted,
             "product_id": id,
@@ -76,7 +74,6 @@ class ProductDetails extends Component{
             console.log(err)
           })
         }
-      }
     })
   }
   addToBag=()=>{
@@ -85,7 +82,6 @@ class ProductDetails extends Component{
     axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
     .then(res =>{
      if(res.status===200){
-       if(Array.isArray(res.data) && res.data.length > 0){
         const bag ={
           "product_id": id,
           "in_bag": this.state.addedToBag
@@ -121,7 +117,7 @@ class ProductDetails extends Component{
         .catch(err=>{
           console.log(err)
         })
-      }
+      
       }
       console.log(res)
     })

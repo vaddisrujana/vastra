@@ -21,7 +21,7 @@ class Products extends Component{
       this.setState({ product:data, category : this.props.params.category})
       axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
       .then(res =>{
-      const p_data= res.data[0].product_details;
+      const p_data= res.data.product_details;
        this.setState({isWishlisted:Object.fromEntries(
         p_data.map(u => [u.product_id,u.is_wishlisted])
        ),addedToBag:Object.fromEntries(
@@ -45,7 +45,6 @@ class Products extends Component{
     axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
     .then(res =>{
       if(res.status===200){
-        if(Array.isArray(res.data) && res.data.length > 0){
           const wishlisted ={
             "is_wishlisted":this.state.isWishlisted[id],
             "product_id": id,
@@ -81,7 +80,7 @@ class Products extends Component{
             console.log(err)
           })
         }
-      }
+      
     })
     }
     addToBag=(id)=>{
@@ -92,7 +91,6 @@ class Products extends Component{
     axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
     .then(res =>{
      if(res.status===200){
-       if(Array.isArray(res.data) && res.data.length > 0){
         const bag ={
           "product_id": id,
           "in_bag": this.state.addedToBag[id]
@@ -128,7 +126,7 @@ class Products extends Component{
           console.log(err)
         })
       }
-      }
+      
     })
     }
     render(){

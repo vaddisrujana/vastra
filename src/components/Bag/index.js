@@ -5,13 +5,13 @@ import axios from 'axios';
 // import { BsHandbag } from "react-icons/bs";
 import { Link } from "react-router-dom";
 // import { IoBagCheck } from "react-icons/io5";
-function Wishlist(){
+function Bag(){
     const [product,setProduct]=useState([])
     useEffect(()=>{
         axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
         .then(res =>{
             const productDetails = res.data.product_details;
-            const productIds = productDetails.filter(item=>item.is_wishlisted).map(item=>item.product_id);
+            const productIds = productDetails.filter(item=>item.in_bag).map(item=>item.product_id);
             const fetchProducts = async() =>{
                 if(productIds.length>0){
                     const productDetails = await Promise.all(productIds.map(id =>{
@@ -62,7 +62,7 @@ function Wishlist(){
     )
 }
  
-export default Wishlist;
+export default Bag;
 
 
 
