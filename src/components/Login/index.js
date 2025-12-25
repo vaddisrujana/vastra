@@ -25,7 +25,8 @@ class Login extends Component {
                 }
             })
             .then(res =>{
-                console.log(res)
+                console.log(res.data.user._id)
+                sessionStorage.setItem("loginId", res.data.user._id);
                 window.location = '/'
             })
             .catch(err =>{

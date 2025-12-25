@@ -6,9 +6,10 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 // import { IoBagCheck } from "react-icons/io5";
 function Bag(){
-    const [product,setProduct]=useState([])
+    const [product,setProduct]=useState([]);
+    const loginId = sessionStorage.getItem("loginId");
     useEffect(()=>{
-        axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
+        axios.get(`http://localhost:3000/bag/${loginId}`)
         .then(res =>{
             const productDetails = res.data.product_details;
             const productIds = productDetails.filter(item=>item.in_bag).map(item=>item.product_id);

@@ -14,12 +14,13 @@ class Products extends Component{
     this.callByCategory();
   }
   callByCategory(){
+    const loginId = sessionStorage.getItem("loginId");
     axios
     .get('http://localhost:3000/products/')
     .then((res)=>{
       const data=res.data.filter(u => u.category === this.props.params.category)
       this.setState({ product:data, category : this.props.params.category})
-      axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
+      axios.get(`http://localhost:3000/bag/${loginId}`)
       .then(res =>{
       const p_data= res.data.product_details;
        this.setState({isWishlisted:Object.fromEntries(
@@ -27,10 +28,13 @@ class Products extends Component{
        ),addedToBag:Object.fromEntries(
         p_data.map(u => [u.product_id,u.in_bag])
        )});
-      });
+      })
+      .catch((err)=>{
+        // console.log(err)
+      })
     })
     .catch((err)=>{
-      console.log(err)
+      // console.log(err)
     })
   }
   componentDidUpdate(prevProps){
@@ -38,97 +42,105 @@ class Products extends Component{
         this.callByCategory()
     }
   }
-  toggleHeart=(id)=>{
-    this.setState((prev)=>({isWishlisted:{
-      ...prev.isWishlisted,[id]:!prev.isWishlisted[id]
-    }}))
-    axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
-    .then(res =>{
-      if(res.status===200){
-          const wishlisted ={
-            "is_wishlisted":this.state.isWishlisted[id],
-            "product_id": id,
-          }
-          axios.patch('http://localhost:3000/bag/68ca7ef475dec5c5683b022e',wishlisted,{
-            headers:{
-              "Content-Type":"application/json"
-            }
-          })
-          .then(res =>{
-            // console.log(res)
-          })
-          .catch(err =>{
-            console.log(err)
-          })
-        } else {
-          const wishlisted ={
-            "login_id":'68ca7ef475dec5c5683b022e',
-              "product_details":{
-              "is_wishlisted":this.state.isWishlisted[id],
-              "product_id": id
-            }
-          }
-          axios.post('http://localhost:3000/bag',wishlisted,{
-            headers:{
-              "Content-Type":"application/json"
-            }
-          })
-          .then(res =>{
-            // console.log(res)
-          })
-          .catch(err=>{
-            console.log(err)
-          })
+  toggleHeart = (id) => {
+      const loginId = sessionStorage.getItem("loginId");
+
+      const newWishlistValue = !this.state.isWishlisted[id];
+
+      // update UI state
+      this.setState(prev => ({
+        isWishlisted: {
+          ...prev.isWishlisted,
+          [id]: newWishlistValue
         }
-      
-    })
-    }
-    addToBag=(id)=>{
-      this.setState((prev)=>({addedToBag:{
-        ...prev.addedToBag,[id]:!prev.addedToBag[id]
-      }
-      }))
-    axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
-    .then(res =>{
-     if(res.status===200){
-        const bag ={
-          "product_id": id,
-          "in_bag": this.state.addedToBag[id]
-        }
-        axios.patch('http://localhost:3000/bag/68ca7ef475dec5c5683b022e',bag,{
-        headers:{
-          "Content-Type":"application/json"
-        }
-        })
-        .then(res =>{
-          // console.log(res)
-        })
-        .catch(err =>{
-          console.log(err)
-        })
-      } else {
-        const bag ={
-          "login_id":'68ca7ef475dec5c5683b022e',
-            "product_details":{
-            "product_id": id,
-            "in_bag": this.state.addedToBag[id]
-          }
-        }
-        axios.post('http://localhost:3000/bag',bag,{
-          headers:{
-            "Content-Type":"application/json"
+      }));
+
+      axios.get(`http://localhost:3000/bag/${loginId}`)
+        .then(res => {
+          if (res.status === 200) {
+            const wishlisted = {
+              is_wishlisted: newWishlistValue,
+              product_id: id
+            };
+
+            return axios.patch(
+              `http://localhost:3000/bag/${loginId}`,
+              wishlisted,
+              { headers: { "Content-Type": "application/json" } }
+            );
           }
         })
-        .then(res =>{
-          // console.log(res)
+        .catch(err => {
+          // handle NOT FOUND
+          if (err.response && err.response.status === 404) {
+            const wishlisted = {
+              login_id: loginId,
+              product_details: {
+                is_wishlisted: newWishlistValue,
+                product_id: id
+              }
+            };
+
+            return axios.post(
+              "http://localhost:3000/bag",
+              wishlisted,
+              { headers: { "Content-Type": "application/json" } }
+            );
+          } else {
+            // console.log(err);
+          }
+        });
+    };
+    addToBag = (id) => {
+      const loginId = sessionStorage.getItem("loginId");
+
+      const newBagValue = !this.state.addedToBag[id];
+
+      // Update UI immediately
+      this.setState(prev => ({
+        addedToBag: {
+          ...prev.addedToBag,
+          [id]: newBagValue
+        }
+      }));
+
+      axios.get(`http://localhost:3000/bag/${loginId}`)
+        .then(res => {
+          if (res.status === 200) {
+            const bag = {
+              product_id: id,
+              in_bag: newBagValue
+            };
+
+            return axios.patch(
+              `http://localhost:3000/bag/${loginId}`,
+              bag,
+              { headers: { "Content-Type": "application/json" } }
+            );
+          }
         })
-        .catch(err=>{
-          console.log(err)
-        })
-      }
-      
-    })
-    }
+        .catch(err => {
+          // create new bag if not found
+          if (err.response && err.response.status === 404) {
+            const bag = {
+              login_id: loginId,
+              product_details: {
+                product_id: id,
+                in_bag: newBagValue
+              }
+            };
+
+            return axios.post(
+              "http://localhost:3000/bag",
+              bag,
+              { headers: { "Content-Type": "application/json" } }
+            );
+          } else {
+            // console.log(err);
+          }
+        });
+    };
+
     render(){
       const {product,isWishlisted,addedToBag} = this.state
         return(

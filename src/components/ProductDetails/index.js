@@ -11,6 +11,7 @@ class ProductDetails extends Component{
     state = {product : [],isWishlisted:'',addedToBag:''}
     componentDidMount(){
      const { id } = this.props.params;
+     const loginId = sessionStorage.getItem("loginId");
     axios
     .get(`http://localhost:3000/products/${id}`)
     .then((res)=>{
@@ -19,7 +20,7 @@ class ProductDetails extends Component{
     .catch((err)=>{
       // console.log(err)
     })
-    axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
+    axios.get(`http://localhost:3000/bag/${loginId}`)
     .then(res =>{
       if(res.status===200){
           const getBag = res.data.product_details.filter(u =>u.product_id===id);
@@ -28,100 +29,100 @@ class ProductDetails extends Component{
             const getWishlistVal = getBag[0].is_wishlisted;
             this.setState({ isWishlisted:getWishlistVal,addedToBag:getBagVal})
           }
-      }
-    })
-  }
-  heart=()=>{
-    this.setState((prevState)=>({isWishlisted:!prevState.isWishlisted}));
-    const { id } = this.props.params;
-    axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
-    .then(res =>{
-      console.log('res.status',res.status)
-      if(res.status===200){
-          const wishlisted ={
-            "is_wishlisted":this.state.isWishlisted,
-            "product_id": id,
-          }
-          console.log(wishlisted);
-          axios.patch('http://localhost:3000/bag/68ca7ef475dec5c5683b022e',wishlisted,{
-            headers:{
-              "Content-Type":"application/json"
-            }
-          })
-          .then(res =>{
-            // console.log(res)
-          })
-          .catch(err =>{
+        }
+      })
+      .catch(err=>{
             console.log(err)
           })
-        } else {
-          const wishlisted ={
-            "login_id":'68ca7ef475dec5c5683b022e',
-              "product_details":{
-              "is_wishlisted":this.state.isWishlisted,
-              "product_id": id
+    }
+    heart = () => {
+      const { id } = this.props.params;
+      const loginId = sessionStorage.getItem("loginId");
+
+      const newWishlistValue = !this.state.isWishlisted;
+
+      // update UI
+      this.setState({ isWishlisted: newWishlistValue });
+
+      axios.get(`http://localhost:3000/bag/${loginId}`)
+        .then(res => {
+          const wishlisted = {
+            product_id: id,
+            is_wishlisted: newWishlistValue
+          };
+
+          return axios.patch(
+            `http://localhost:3000/bag/${loginId}`,
+            wishlisted,
+            { headers: { "Content-Type": "application/json" } }
+          );
+        })
+        .catch(err => {
+          if (err.response && err.response.status === 404) {
+            const wishlisted = {
+              login_id: loginId,
+              product_details: {
+                product_id: id,
+                is_wishlisted: newWishlistValue
+              }
+            };
+
+            return axios.post(
+              "http://localhost:3000/bag",
+              wishlisted,
+              { headers: { "Content-Type": "application/json" } }
+            );
+          }
+
+          // rollback UI if error
+          this.setState({ isWishlisted: !newWishlistValue });
+          console.log(err);
+        });
+    };
+    addToBag = () => {
+        const { id } = this.props.params;
+        const loginId = sessionStorage.getItem("loginId");
+
+        const newBagValue = !this.state.addedToBag;
+
+        // update UI
+        this.setState({ addedToBag: newBagValue });
+
+        axios.get(`http://localhost:3000/bag/${loginId}`)
+          .then(res => {
+            const bag = {
+              product_id: id,
+              in_bag: newBagValue
+            };
+
+            return axios.patch(
+              `http://localhost:3000/bag/${loginId}`,
+              bag,
+              { headers: { "Content-Type": "application/json" } }
+            );
+          })
+          .catch(err => {
+            if (err.response && err.response.status === 404) {
+              const bag = {
+                login_id: loginId,
+                product_details: {
+                  product_id: id,
+                  in_bag: newBagValue
+                }
+              };
+
+              return axios.post(
+                "http://localhost:3000/bag",
+                bag,
+                { headers: { "Content-Type": "application/json" } }
+              );
             }
-          }
-          axios.post('http://localhost:3000/bag',wishlisted,{
-            headers:{
-              "Content-Type":"application/json"
-            }
-          })
-          .then(res =>{
-            // console.log(res)
-          })
-          .catch(err=>{
-            console.log(err)
-          })
-        }
-    })
-  }
-  addToBag=()=>{
-    this.setState((prevState)=>({addedToBag:!prevState.addedToBag}))
-    const { id } = this.props.params;
-    axios.get('http://localhost:3000/bag/68ca7ef475dec5c5683b022e')
-    .then(res =>{
-     if(res.status===200){
-        const bag ={
-          "product_id": id,
-          "in_bag": this.state.addedToBag
-        }
-        console.log(bag);
-        axios.patch('http://localhost:3000/bag/68ca7ef475dec5c5683b022e',bag,{
-        headers:{
-          "Content-Type":"application/json"
-        }
-        })
-        .then(res =>{
-          // console.log(res)
-        })
-        .catch(err =>{
-          console.log(err)
-        })
-      } else {
-        const bag ={
-          "login_id":'68ca7ef475dec5c5683b022e',
-            "product_details":{
-            "product_id": id,
-            "in_bag": this.state.addedToBag
-          }
-        }
-        axios.post('http://localhost:3000/bag',bag,{
-          headers:{
-            "Content-Type":"application/json"
-          }
-        })
-        .then(res =>{
-          // console.log(res)
-        })
-        .catch(err=>{
-          console.log(err)
-        })
-      
-      }
-      console.log(res)
-    })
-  }
+
+            // rollback UI
+            this.setState({ addedToBag: !newBagValue });
+            console.log(err);
+          });
+      };
     render(){
         const {product,isWishlisted,addedToBag} = this.state
         return(

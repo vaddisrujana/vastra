@@ -33,9 +33,11 @@ class Registration extends Component {
         }
       })
         .then(res => {
-          window.location.href = "/";
+          // window.location.href = "/";
+          console.log(res)
+          sessionStorage.setItem("loginId", res.data._id);
           // e.target.reset();
-          // this.showPopup("Success! User created", "green");
+          this.showPopup("Success! User created", "green");
         })
         .catch(err => {
           this.showPopup(err.response.data.message, "red");
