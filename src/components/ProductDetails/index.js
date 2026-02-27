@@ -38,7 +38,7 @@ class ProductDetails extends Component{
     heart = () => {
       const { id } = this.props.params;
       const loginId = sessionStorage.getItem("loginId");
-
+      if( loginId==='null'){
       const newWishlistValue = !this.state.isWishlisted;
 
       // update UI
@@ -78,11 +78,14 @@ class ProductDetails extends Component{
           this.setState({ isWishlisted: !newWishlistValue });
           console.log(err);
         });
+      }else{
+        window.location = '/login'
+      }
     };
     addToBag = () => {
         const { id } = this.props.params;
         const loginId = sessionStorage.getItem("loginId");
-
+         if( loginId==='null'){
         const newBagValue = !this.state.addedToBag;
 
         // update UI
@@ -122,6 +125,9 @@ class ProductDetails extends Component{
             this.setState({ addedToBag: !newBagValue });
             console.log(err);
           });
+        }else{
+          window.location='/login'
+        }
       };
     render(){
         const {product,isWishlisted,addedToBag} = this.state

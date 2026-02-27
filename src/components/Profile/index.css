@@ -1,0 +1,26 @@
+.profile-down-arrow{
+  font-size: 10vh;
+}
+.profile-dropdown{
+  color:grey
+}
+/* .profile-dropdown:hover{
+  background: grey;
+  color:#fff
+} */
+.details{
+  border: none;
+  margin-top: -12px;
+}
+.profile{
+  border-radius: 50px ;
+  width:70px;
+  padding:10px;
+  background:#ad5050;
+  color:#FCEFE6;
+}
+.user-name{
+  margin-left:20px;
+  margin-top:10px;
+  color:#ad5050;
+}

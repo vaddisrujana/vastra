@@ -44,7 +44,8 @@ class Products extends Component{
   }
   toggleHeart = (id) => {
       const loginId = sessionStorage.getItem("loginId");
-
+      
+      if( loginId==='null'){
       const newWishlistValue = !this.state.isWishlisted[id];
 
       // update UI state
@@ -90,55 +91,61 @@ class Products extends Component{
             // console.log(err);
           }
         });
+      }else{
+        window.location = '/login'
+      }
     };
     addToBag = (id) => {
       const loginId = sessionStorage.getItem("loginId");
+      if( loginId==='null'){
+        const newBagValue = !this.state.addedToBag[id];
 
-      const newBagValue = !this.state.addedToBag[id];
-
-      // Update UI immediately
-      this.setState(prev => ({
-        addedToBag: {
-          ...prev.addedToBag,
-          [id]: newBagValue
-        }
-      }));
-
-      axios.get(`http://localhost:3000/bag/${loginId}`)
-        .then(res => {
-          if (res.status === 200) {
-            const bag = {
-              product_id: id,
-              in_bag: newBagValue
-            };
-
-            return axios.patch(
-              `http://localhost:3000/bag/${loginId}`,
-              bag,
-              { headers: { "Content-Type": "application/json" } }
-            );
+        // Update UI immediately
+        this.setState(prev => ({
+          addedToBag: {
+            ...prev.addedToBag,
+            [id]: newBagValue
           }
-        })
-        .catch(err => {
-          // create new bag if not found
-          if (err.response && err.response.status === 404) {
-            const bag = {
-              login_id: loginId,
-              product_details: {
+        }));
+
+        axios.get(`http://localhost:3000/bag/${loginId}`)
+          .then(res => {
+            if (res.status === 200) {
+              const bag = {
                 product_id: id,
                 in_bag: newBagValue
-              }
-            };
+              };
 
-            return axios.post(
-              "http://localhost:3000/bag",
-              bag,
-              { headers: { "Content-Type": "application/json" } }
-            );
-          } else {
-            // console.log(err);
-          }
-        });
+              return axios.patch(
+                `http://localhost:3000/bag/${loginId}`,
+                bag,
+                { headers: { "Content-Type": "application/json" } }
+              );
+            }
+          })
+          .catch(err => {
+            // create new bag if not found
+            if (err.response && err.response.status === 404) {
+              const bag = {
+                login_id: loginId,
+                product_details: {
+                  product_id: id,
+                  in_bag: newBagValue
+                }
+              };
+
+              return axios.post(
+                "http://localhost:3000/bag",
+                bag,
+                { headers: { "Content-Type": "application/json" } }
+              );
+            } else {
+              // console.log(err);
+            }
+          });
+      }else{
+        window.location = '/login'
+      }
     };
 
     render(){

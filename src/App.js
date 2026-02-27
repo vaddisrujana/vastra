@@ -11,6 +11,7 @@ import Products from './components/Products';
 import Wishlist from './components/Wishlist';
 import Bag from './components/Bag';
 import Admin from './components/Admin';
+import Profile from './components/Profile';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path='/productdetails/:id' element={<ProductDetails/>} />
             <Route path='/Wishlist' exact element={<Wishlist/>} />
             <Route path='/Bag' exact element={<Bag/>} />
+            <Route path='/Profile' exact element={<Profile/>} />
             <Route path='/Admin' exact element={<Admin/>} />
           </Routes>
         </div>
